@@ -1,0 +1,57 @@
+#!/bin/bash
+
+
+# Variable for the report output file, choose a NEW output file name
+
+REPORT_FILE="Linux_Hardening2"
+
+
+# Output the sshd configuration file
+
+echo "Gathering details from sshd configuration file"
+
+echo "sshd configuration file:$(cat /etc/ssh/sshd_config)" >> $REPORT_FILE
+
+printf "\n" >> $REPORT_FILE
+
+
+
+# Update packages and services
+
+echo "Updating packages and services"
+
+apt update
+
+apt upgrade -y
+
+echo "Packages have been updated and upgraded" >> $REPORT_FILE
+
+printf "\n" >> $REPORT_FILE
+
+
+
+echo "Installed Packages:" >> $REPORT_FILE
+
+apt list --installed >> $REPORT_FILE
+
+printf "\n" >> $REPORT_FILE
+
+echo "Printing out logging configuration data"
+
+echo "journald.conf file data:" >> $REPORT_FILE
+
+cat /etc/systemd/journald.conf >> $REPORT_FILE
+
+printf "\n" >> $REPORT_FILE
+
+
+
+echo "logrotate.conf file data:" >> $REPORT_FILE
+
+cat /etc/logrotate.conf >> $REPORT_FILE
+
+printf "\n" >> $REPORT_FILE
+
+
+
+echo "Script execution completed. Check $REPORT_FILE for details."
